@@ -18,8 +18,8 @@ Para abordar estas preguntas, nos centraremos en tareas de clustering y asociaci
   - `processed/`: Datos procesados y listos para el análisis.
   
 - [**notebooks/**](notebooks/): Jupyter Notebooks que documentan el flujo de trabajo.
-  - `01_data_exploration.ipynb`: Exploración inicial de los datos.
-  - `02_data_cleaning.ipynb`: Limpieza y preprocesamiento de datos.
+  - [01_data_exploration.ipynb](01_data_exploration.ipynb): Exploración inicial de los datos.
+  - [02_data_transform.ipynb](02_data_transform.ipynb): Limpieza y preprocesamiento de datos.
   - `03_clustering_analysis.ipynb`: Aplicación de algoritmos de clustering.
   - `04_results_visualization.ipynb`: Visualización de resultados.
   
