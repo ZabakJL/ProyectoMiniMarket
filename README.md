@@ -33,5 +33,5 @@ Para abordar estas preguntas, nos centraremos en tareas de clustering y asociaci
   - `final_report.md`: Informe final del proyecto.
   - `presentation.pdf`: Presentación del proyecto.
 
-- [**tests/**](tests/): Pruebas unitarias para el código del proyecto.
+- [**weekly_updates/**](weekly_updates/): Instrucciones y avances semanales del proyecto.
 
