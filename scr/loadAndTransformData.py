@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import string
 
 def cargar_csv(ruta):
     """
@@ -162,3 +163,60 @@ def guardar_csv(df, ruta, nombre_archivo):
         print(f"Archivo guardado exitosamente en: {ruta_completa}")
     except Exception as e:
         print(f"Error al guardar el archivo: {e}")
+        
+
+def convert_columns_to_object(df: pd.DataFrame, columns: list) -> pd.DataFrame:
+    """
+    Convierte las columnas especificadas en el DataFrame a tipo 'object'.
+    
+    :param df: DataFrame de entrada.
+    :param columns: Lista de nombres de las columnas que se deben convertir a tipo 'object'.
+    :return: DataFrame con las columnas especificadas convertidas a tipo 'object'.
+    """
+    # Verifica si las columnas están en el DataFrame
+    for column in columns:
+        if column in df.columns:
+            df[column] = df[column].astype('object')
+        else:
+            print(f"Advertencia: La columna '{column}' no se encuentra en el DataFrame.")
+    
+    return df
+
+def convert_columns_to_category(df: pd.DataFrame, columns: list) -> pd.DataFrame:
+    """
+    Convierte las columnas especificadas en el DataFrame a tipo 'object'.
+    
+    :param df: DataFrame de entrada.
+    :param columns: Lista de nombres de las columnas que se deben convertir a tipo 'object'.
+    :return: DataFrame con las columnas especificadas convertidas a tipo 'object'.
+    """
+    # Verifica si las columnas están en el DataFrame
+    for column in columns:
+        if column in df.columns:
+            df[column] = df[column].astype('category')
+        else:
+            print(f"Advertencia: La columna '{column}' no se encuentra en el DataFrame.")
+    
+    return df
+
+def generar_etiquetas_consecutivas(n):
+    """
+    Genera etiquetas consecutivas en el formato A, B, ..., Z, A1, B1, ..., Z1, A2, B2, ..., etc.
+    
+    :param n: Número total de etiquetas a generar.
+    :return: Lista de etiquetas.
+    """
+    etiquetas = []
+    letras = list(string.ascii_uppercase)
+    
+    for i in range(n):
+        if i < 26:
+            etiquetas.append(letras[i])
+        else:
+            ciclo = i // 26
+            indice = i % 26
+            etiquetas.append(f"{letras[indice]}{ciclo}")
+    
+    return etiquetas
+
+
