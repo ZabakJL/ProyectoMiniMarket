@@ -95,7 +95,7 @@ def graficar_boxplots(df, cols, num_col=3, ancho=15, alto_fila=5, titulo=None, c
     return fig
 
 
-def estadisticas_graficoBarras(df, col_name, title_=None, colores=colores):
+def graficoBarras(data, col_name, title_, colores=colores_combinados, figsize=(15, 8)):
     """
     Genera un gráfico de barras verticales a partir del conteo de categorías en una columna de un DataFrame.
     La función calcula la frecuencia de cada categoría en la columna especificada, crea un DataFrame con la distribución,
@@ -106,16 +106,25 @@ def estadisticas_graficoBarras(df, col_name, title_=None, colores=colores):
     - col_name (str): Nombre de la columna en el DataFrame cuyos valores serán contados para el gráfico.
     - title_ (str): Título del gráfico de barras.
     - colores (list, opcional): Lista de colores para las barras. Si es None, se utilizará un color predeterminado.
+    - figsize (tuple, opcional): Tamaño de la figura en pulgadas. Por defecto es (15, 8).
 
     Retorna:
     - fig (matplotlib.figure.Figure): La figura del gráfico de barras creada.
     """
 
+    # Contar la frecuencia de cada categoría en la columna especificada
+    counts = data[col_name].value_counts()
+
+    # Crear DataFrame para la distribución
+    df = counts.reset_index()
+    df.columns = [col_name, 'Frecuencia']
+    df.set_index(col_name, inplace=True)
+
     # Crear la figura, especificar tamaño y resolución
-    fig, ax = plt.subplots(figsize=(12, 4))
+    fig, ax = plt.subplots(figsize=figsize)
 
     # Crear gráfico de barras verticales
-    bars = df[col_name].plot(kind='bar', color=colores, legend=False, width=0.95)
+    bars = df['Frecuencia'].plot(kind='bar', color=colores, legend=False, width=0.7)
 
     # Agregar títulos a las etiquetas de los ejes
     plt.ylabel('Frecuencia')
@@ -137,6 +146,7 @@ def estadisticas_graficoBarras(df, col_name, title_=None, colores=colores):
     plt.tight_layout()
 
     return fig
+
 
 
 

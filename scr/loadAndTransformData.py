@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import string
+import random
 
 def cargar_csv(ruta):
     """
@@ -220,3 +221,49 @@ def generar_etiquetas_consecutivas(n):
     return etiquetas
 
 
+def procesar_y_agrupar(df, ruta_guardado, columnas_agrupacion, columnas_suma, modo_agrupacion='sum', chunksize_guardado=10**6, chunksize_lectura=10**5):
+    """
+    Procesa un DataFrame en chunks, agrupa por las columnas especificadas y aplica la función de agregación indicada.
+    Luego, guarda los resultados en un archivo CSV y devuelve el DataFrame agrupado final.
+
+    Parámetros:
+    - df (pd.DataFrame): DataFrame a procesar.
+    - ruta_guardado (str): Ruta de la carpeta donde se guardarán los archivos temporales.
+    - columnas_agrupacion (list): Lista de columnas por las cuales se agruparán los datos.
+    - columnas_suma (list): Lista de columnas a las cuales se les aplicará la función de agregación.
+    - modo_agrupacion (str, opcional): Función de agregación a aplicar ('sum', 'mean', etc.). Por defecto es 'sum'.
+    - chunksize_guardado (int, opcional): Tamaño de chunk para guardar el DataFrame. Por defecto es 10^6.
+    - chunksize_lectura (int, opcional): Tamaño de chunk para leer el archivo CSV. Por defecto es 10^5.
+
+    Retorna:
+    - pd.DataFrame: DataFrame final agrupado.
+    """
+
+    # Generar un número aleatorio de 20 dígitos para el nombre del archivo
+    numero_aleatorio = random.randint(10**19, 10**20 - 1)
+    nombre_archivo = f"{ruta_guardado}/{numero_aleatorio}.csv"
+
+    # Guardar DataFrame en un archivo CSV en chunks
+    df.to_csv(nombre_archivo, index=False, chunksize=chunksize_guardado)
+
+    # Leer y procesar los chunks uno por uno
+    chunks = []
+    for chunk in pd.read_csv(nombre_archivo, chunksize=chunksize_lectura):
+        if modo_agrupacion == 'sum':
+            grouped_chunk = chunk.groupby(columnas_agrupacion)[columnas_suma].sum().reset_index()
+        elif modo_agrupacion == 'mean':
+            grouped_chunk = chunk.groupby(columnas_agrupacion)[columnas_suma].mean().reset_index()
+        # Puedes agregar más modos de agregación si es necesario
+        else:
+            raise ValueError(f"Modo de agrupación '{modo_agrupacion}' no soportado.")
+
+        chunks.append(grouped_chunk)
+
+    # Combinar los resultados en un DataFrame final
+    df_agrupado = pd.concat(chunks)
+    
+    return df_agrupado
+
+# Ejemplo de uso:
+# df_resultado = procesar_y_agrupado(df, '../data/temp/chunks', ['fecha', 'codigo_factura', 'codigo_producto', 'familia', 'categoria', 'subcategoria'], 
+#                                    ['cantidad_vendida', 'venta_bruta_producto', 'venta_neta_producto'], modo_agrupacion='sum')
