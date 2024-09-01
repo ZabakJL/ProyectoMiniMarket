@@ -19,7 +19,7 @@ Para abordar estas preguntas, nos centraremos en tareas de clustering y asociaci
   
 - [**notebooks/**](notebooks/): Jupyter Notebooks que documentan el flujo de trabajo.
   - `01_data_exploration.ipynb`: Exploración inicial de los datos.
-  - `02_data_cleaning.ipynb`: Limpieza y preprocesamiento de datos.
+  - `02_data_transform.ipynb`: Limpieza y preprocesamiento de datos.
   - `03_clustering_analysis.ipynb`: Aplicación de algoritmos de clustering.
   - `04_results_visualization.ipynb`: Visualización de resultados.
   
@@ -33,5 +33,5 @@ Para abordar estas preguntas, nos centraremos en tareas de clustering y asociaci
   - `final_report.md`: Informe final del proyecto.
   - `presentation.pdf`: Presentación del proyecto.
 
-- [**tests/**](tests/): Pruebas unitarias para el código del proyecto.
+- [**weekly_updates/**](weekly_updates/): Instrucciones y avances semanales del proyecto.
 
