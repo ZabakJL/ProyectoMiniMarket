@@ -181,10 +181,11 @@ def cantidades_faltantes(data,t=None):
 #         print(perc[perc>=t])    
 #         return list(perc[perc>=t].index)
 
-def histog_categoricos(data,n,c=5,r=5):
-    if type(data) == pd.core.series.Series:
+def histog_categoricos(data, n, c=5, r=5):
+    if isinstance(data, pd.Series):
         plt.figure(figsize=(c, r))
-        valores, recuentos = data.value_counts().index, data.value_counts().values
+        # Ordenar valores por frecuencia de mayor a menor
+        valores, recuentos = data.value_counts().sort_values(ascending=False).index, data.value_counts().sort_values(ascending=False).values
 
         sns.barplot(x=valores, y=recuentos)
         plt.xlabel(data.name)
@@ -201,8 +202,8 @@ def histog_categoricos(data,n,c=5,r=5):
 
         for i, columna in enumerate(data.columns):
             plt.subplot(num_filas, num_columnas, i+1)
-         
-            valores, recuentos = data[columna].value_counts().index, data[columna].value_counts().values
+            # Ordenar valores por frecuencia de mayor a menor
+            valores, recuentos = data[columna].value_counts().sort_values(ascending=False).index, data[columna].value_counts().sort_values(ascending=False).values
             sns.barplot(x=valores, y=recuentos)
             plt.xlabel(columna)
             plt.ylabel('Conteo')
