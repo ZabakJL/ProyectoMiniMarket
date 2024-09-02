@@ -24,9 +24,9 @@ Para abordar estas preguntas, nos centraremos en tareas de clustering y asociaci
   - `04_results_visualization.ipynb`: Visualización de resultados.
   
 - [**src/**](src/): Código fuente del proyecto.
-  - `data_preprocessing.py`: Scripts para la limpieza y preprocesamiento de datos.
+  - `loadAndTransformData.py`: Scripts para la limpieza y preprocesamiento de datos.
   - `clustering.py`: Scripts para el clustering.
-  - `visualization.py`: Scripts para la visualización de datos.
+  - `viedDataFunctions.py`: Scripts para la visualización de datos.
 
 - [**reports/**](reports/): Documentación y reportes del proyecto.
   - `figures/`: Imágenes y gráficos generados.
