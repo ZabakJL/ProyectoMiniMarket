@@ -157,7 +157,7 @@ def graficoBarras(data, col_name, title_, colores=colores_combinados, figsize=(1
 
 def cats_y_nums(data):
     nums = data.select_dtypes(include=np.number).columns.tolist()
-    cats = data.select_dtypes(include= 'object').columns.tolist()
+    cats = data.select_dtypes(include= ['category', 'object']).columns.tolist()
     return cats,nums
 
 def histog_mean_desv(data, n, dens=False):
