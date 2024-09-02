@@ -30,8 +30,7 @@ Para abordar estas preguntas, nos centraremos en tareas de clustering y asociaci
 
 - [**reports/**](reports/): Documentación y reportes del proyecto.
   - `figures/`: Imágenes y gráficos generados.
-  - `final_report.md`: Informe final del proyecto.
-  - `presentation.pdf`: Presentación del proyecto.
+  - `Propuesta inicial.pdf`: resumen de la propuesta de desarrollo del proyecto.
 
 - [**weekly_updates/**](weekly_updates/): Instrucciones y avances semanales del proyecto.
 
