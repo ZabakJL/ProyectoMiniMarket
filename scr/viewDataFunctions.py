@@ -574,3 +574,47 @@ def crear_heatmap_asociacion(df, metric='support', cmap=cmap_personalizado):
     
     # Retornar la figura con el heatmap
     return fig
+
+def graficar_coordenadas_paralelas(df):
+    """
+    Crea una gráfica de coordenadas paralelas para visualizar las relaciones entre 'antecedents' y 'consequents'.
+    
+    Parámetros:
+    df (pandas.DataFrame): El DataFrame que contiene las reglas de asociación con columnas 'antecedents' y 'consequents'.
+    
+    Retorna:
+    matplotlib.figure.Figure: Figura con la gráfica de coordenadas paralelas creada.
+    """
+    # Convertir los 'antecedents' y 'consequents' a string para evitar problemas con los valores únicos
+    df['antecedents'] = df['antecedents'].astype(str)
+    df['consequents'] = df['consequents'].astype(str)
+    
+    # Obtener los valores únicos de antecedents y consequents
+    antecedents = df['antecedents'].unique()
+    consequents = df['consequents'].unique()
+    
+    # Crear un diccionario para asignar posiciones en el eje Y a cada categoría
+    y_values = {value: idx for idx, value in enumerate(antecedents.tolist() + consequents.tolist())}
+    
+    # Crear la figura y los ejes
+    fig, ax = plt.subplots(figsize=(10, 8))
+    
+    # Dibujar las líneas que conectan los antecedents con los consequents
+    for _, row in df.iterrows():
+        y0 = y_values[row['antecedents']]
+        y1 = y_values[row['consequents']]
+        ax.plot([0, 1], [y0, y1], color='skyblue', alpha=0.7)
+    
+    # Ajustar las etiquetas del eje Y
+    ax.set_yticks(list(y_values.values()))
+    ax.set_yticklabels(list(y_values.keys()), rotation=0)
+    
+    # Ajustar las etiquetas del eje X
+    ax.set_xticks([0, 1])
+    ax.set_xticklabels(['antecedent', 'consequent'])
+    
+    # Título de la gráfica
+    ax.set_title('Parallel Coordinate Graph')
+    
+    # Retornar la figura
+    return fig
