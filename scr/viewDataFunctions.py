@@ -477,3 +477,100 @@ def guardar_grafico(fig, ruta):
     except Exception as e:
         print(f'Error al guardar la figura: {e}')
         
+        
+
+def graficar_top_categorias(df, columna, top=10, color=colores_combinados, figsize=(5,10)):
+    """
+    Crea un gráfico de barras horizontales con el conteo de las categorías en la columna especificada.
+    
+    Parámetros:
+    df (pandas.DataFrame): El DataFrame de entrada.
+    columna (str): El nombre de la columna cuyas categorías se desean contar y graficar.
+    top (int): El número de barras a mostrar en el gráfico (por defecto es 10).
+    
+    Retorna:
+    matplotlib.figure.Figure: Figura del gráfico de barras horizontal con las etiquetas de datos.
+    """
+    # Contar las categorías en la columna especificada
+    conteo = df[columna].value_counts().head(top)
+    total = df[columna].value_counts().sum()  # Total de elementos para calcular el porcentaje
+    
+    # Crear la figura y el gráfico de barras horizontales
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.barh(conteo.index, conteo.values, color=color)
+    
+    # Añadir etiquetas de datos en las barras
+    for i, (valor, nombre) in enumerate(zip(conteo, conteo.index)):
+        porcentaje = valor / total * 100
+        ax.text(valor + 1, i, f'{valor:,.0f} ({porcentaje:.2f}%)', va='center', color='black')
+
+    # Personalizar el gráfico
+    ax.invert_yaxis()  # Invertir el eje Y para que el top sea descendente
+    ax.set_title(f'Top {top} de {columna}')
+    ax.set_xlabel('Frecuencia')
+    ax.set_ylabel(columna)
+    plt.tight_layout()
+    
+    # Retornar la figura
+    return fig
+
+def top_categorias(df, columna, top=10):
+    """
+    Crea un DataFrame con el conteo de las categorías en la columna especificada, junto con su porcentaje.
+    
+    Parámetros:
+    df (pandas.DataFrame): El DataFrame de entrada.
+    columna (str): El nombre de la columna cuyas categorías se desean contar y graficar.
+    top (int): El número de filas a mostrar en el DataFrame (por defecto es 10).
+    
+    Retorna:
+    pandas.DataFrame: Un DataFrame con las columnas 'columna', 'cuenta' y 'porcentaje'.
+    """
+    
+    # Contar las categorías en la columna especificada
+    conteo = df[columna].value_counts().head(top)
+    total = df[columna].value_counts().sum()  # Total de elementos para calcular el porcentaje
+    
+    # Crear un DataFrame con las columnas solicitadas
+    df_resultado = pd.DataFrame({
+        columna: conteo.index,
+        'cuenta': conteo.values,
+        'porcentaje': (conteo.values / total) * 100
+    })
+    
+    # Redondear el porcentaje a 2 decimales
+    df_resultado['porcentaje'] = df_resultado['porcentaje'].round(2)
+    
+    return df_resultado
+
+def crear_heatmap_asociacion(df, metric='support', cmap=cmap_personalizado):
+    """
+    Crea un heatmap basado en la métrica de asociación entre 'antecedents' y 'consequents' en el DataFrame dado.
+    
+    Parámetros:
+    df (pandas.DataFrame): El DataFrame que contiene las reglas de asociación con columnas 'antecedents', 'consequents' y la métrica especificada.
+    metric (str): La métrica a utilizar para el heatmap. Por defecto es 'support'.
+    
+    Retorna:
+    matplotlib.figure.Figure: Figura con el heatmap creado.
+    """
+    # Paso 1: Preparar la matriz de datos con la métrica seleccionada
+    heatmap_data = df.pivot_table(
+        index='antecedents', 
+        columns='consequents', 
+        values=metric, 
+        fill_value=0  # Rellenar NaN con 0
+    )
+    
+    # Paso 2: Crear la figura y el heatmap
+    fig, ax = plt.subplots(figsize=(10, 8))
+    sns.heatmap(heatmap_data, annot=True, fmt=".3f", cmap=cmap, cbar_kws={'label': metric}, ax=ax)
+    
+    # Títulos y etiquetas
+    ax.set_title(f'Heatmap de {metric.capitalize()} entre Antecedents y Consequents')
+    ax.set_xlabel('Consequents')
+    ax.set_ylabel('Antecedents')
+    plt.tight_layout()
+    
+    # Retornar la figura con el heatmap
+    return fig

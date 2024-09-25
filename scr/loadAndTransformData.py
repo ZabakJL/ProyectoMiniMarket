@@ -267,3 +267,23 @@ def procesar_y_agrupar(df, ruta_guardado, columnas_agrupacion, columnas_suma, mo
 # Ejemplo de uso:
 # df_resultado = procesar_y_agrupado(df, '../data/temp/chunks', ['fecha', 'codigo_factura', 'codigo_producto', 'familia', 'categoria', 'subcategoria'], 
 #                                    ['cantidad_vendida', 'venta_bruta_producto', 'venta_neta_producto'], modo_agrupacion='sum')
+
+def convertir_a_bool(df):
+    """
+    Convierte todas las columnas de un DataFrame a tipo booleano.
+    
+    Parámetros:
+    df (pandas.DataFrame): El DataFrame de entrada.
+
+    Retorna:
+    pandas.DataFrame: El DataFrame con todas las columnas convertidas a tipo booleano.
+    """
+    # Convertir todas las columnas a tipo booleano
+    df_bool = df.astype(bool)
+    return df_bool
+
+# Ejemplo de uso:
+# data = {'A': [0, 1, 2], 'B': [True, False, True], 'C': [1.0, 0.0, 3.5]}
+# df = pd.DataFrame(data)
+# df_bool = convertir_a_bool(df)
+# print(df_bool)
