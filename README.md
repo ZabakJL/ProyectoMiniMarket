@@ -20,17 +20,18 @@ Para abordar estas preguntas, nos centraremos en tareas de clustering y asociaci
 - [**notebooks/**](notebooks/): Jupyter Notebooks que documentan el flujo de trabajo.
   - `01_data_exploration.ipynb`: Exploración inicial de los datos.
   - `02_data_transform.ipynb`: Limpieza y preprocesamiento de datos.
-  - `03_basket_analysis.ipynb`: Aplicación de algoritmos de clustering.
-  - `04_results_visualization.ipynb`: Visualización de resultados.
-  
+  - `03_basket_analysis.ipynb`: Aplicación de algoritmo Apriori.
+  - `04_basket_analysis.ipynb`: Aplicación de algoritmo FP-Growth
 - [**src/**](src/): Código fuente del proyecto.
   - `loadAndTransformData.py`: Scripts para la limpieza y preprocesamiento de datos.
-  - `clustering.py`: Scripts para el clustering.
+  - `basket_analysis`: Scripts para la ejecución de los algoritmos de analisis.
   - `viedDataFunctions.py`: Scripts para la visualización de datos.
 
 - [**reports/**](reports/): Documentación y reportes del proyecto.
   - `figures/`: Imágenes y gráficos generados.
   - `Propuesta inicial.pdf`: resumen de la propuesta de desarrollo del proyecto.
+  - `Informe Final Proyecto ANS versión completa.pdf`: Informe final del proyecto versión completa.
+  - `Informe Final Proyecto ANS versión corta.pdf`: Resumen del informe final del proyecto.
 
 - [**weekly_updates/**](weekly_updates/): Instrucciones y avances semanales del proyecto.
 
